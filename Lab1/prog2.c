@@ -2,20 +2,17 @@
 #include <string.h>
 #include <stdlib.h>
 
-struct Employee {
-    char first_name [100];
-    char last_name [100];
+typedef struct Employee {
+    char * first_name;
+    char * last_name;
     unsigned int age;
-    char role [150];
-    unsigned int has_server_access;
-};
+    char * role;
+} Employee;
 
-struct EmployeeArray
-{
-    Employee * 
-    size_t 
-    
-}
+typedef struct EmployeeArray{
+    Employee * EmployeeList;
+    int size_of_employee_list;
+} EmployeeArray;
 
 // menu functions
 void return_to_menu ();
@@ -75,8 +72,6 @@ void init_dynamic_db (int n, struct Employee* db) {
         scanf("%u", &(db+(i-1))->age);
         printf("Role in the company: ");
         scanf("%s", (db+(i-1))->role);
-        printf("Has server access?: ");
-        scanf("%u", &(db+(i-1))->has_server_access);
     }
 }
 
@@ -88,7 +83,6 @@ void print_dynamic_db (int size, struct Employee* db) {
         printf("Last name: %s\n", (db+i)->last_name);
         printf("Age: %u\n", (db+i)->age);
         printf("Role: %s\n", (db+i)->role);
-        printf("Server access: %u\n\n", (db+i)->has_server_access);
     }
 }
 
@@ -142,62 +136,6 @@ unsigned int find_element_by_role (int size, struct Employee* db) {
         printf("Couldn't find element\n");
     }
 }
-
-/* // Old version of operations_menu with int input_buffer
-void operations_menu (int size, struct Employee* db) {
-    int input_buffer = -1;
-    do {
-        printf("Choose a search type:\n");
-        printf("1.Find by First name\n2.Find by Last name\n3.Find by Role\n\n4.Print database\n\n5.Sort by age\n6.Sort by first name\n7.Sort by last name\n8.Sort by role\n\na.Append element\n\n0.Quit\n");
-        scanf("%u", &input_buffer);
-        switch (input_buffer)
-        {
-        case 0:
-            printf("Exit requested\n");
-            break;
-        case 1:
-            find_element_by_first_name(size, db);
-            return_to_menu();
-            break;
-        case 2:
-            find_element_by_last_name(size, db);
-            return_to_menu();
-            break;
-        case 3:
-            find_element_by_role(size, db);
-            return_to_menu();
-            break;
-        case 4:
-            print_dynamic_db(size, db);
-            return_to_menu();
-            break;
-        case 5:
-            sort_by_age(db, size);
-            print_dynamic_db(size, db);
-            return_to_menu();
-            break;
-        case 6:
-            sort_by_first_name(db, size);
-            print_dynamic_db(size, db);
-            return_to_menu();
-            break;
-        case 7:
-            sort_by_last_name(db, size);
-            print_dynamic_db(size, db);
-            return_to_menu();
-            break;
-        case 8:
-            sort_by_role(db, size);
-            print_dynamic_db(size, db);
-            return_to_menu();
-            break;
-        default:
-            printf("Invalid input\n");
-            break;
-        }
-    } while (input_buffer != 0);
-}
-*/
 
 void operations_menu (int size, struct Employee* db) {
     char input_buffer;
@@ -323,8 +261,6 @@ struct Employee* append_element(struct Employee* db, int* size) {
     scanf("%u", &new_employee.age);
     printf("Enter role: ");
     scanf("%s", new_employee.role);
-    printf("Enter server access (1 for yes, 0 for no): ");
-    scanf("%u", &new_employee.has_server_access);
 
     struct Employee* new_db = realloc(db, (*size + 1) * sizeof(struct Employee));
     if (new_db == NULL) {
@@ -347,8 +283,6 @@ struct Employee* prepend_element(struct Employee* db, int* size) {
     scanf("%u", &new_employee.age);
     printf("Enter role: ");
     scanf("%s", new_employee.role);
-    printf("Enter server access (1 for yes, 0 for no): ");
-    scanf("%u", &new_employee.has_server_access);
 
     struct Employee* new_db = realloc(db, (*size + 1) * sizeof(struct Employee));
     if (new_db == NULL) {
@@ -384,8 +318,6 @@ struct Employee* insert_element(struct Employee* db, int* size) {
     scanf("%u", &new_employee.age);
     printf("Enter role: ");
     scanf("%s", new_employee.role);
-    printf("Enter server access (1 for yes, 0 for no): ");
-    scanf("%u", &new_employee.has_server_access);
 
     struct Employee* new_db = realloc(db, (*size + 1) * sizeof(struct Employee));
     if (new_db == NULL) {

@@ -13,11 +13,11 @@ struct Employee {
 };
 
 void return_to_menu ();
-void init_static_list (int n, struct Employee list []);
+void init_static_list (int size_of_list, struct Employee list []);
 void print_static_list (int size_of_list, struct Employee list []);
-unsigned int find_element_by_first_name (int size_of_list, struct Employee list []);
+int find_element_by_first_name (char * first_name, int size_of_list, struct Employee list []);
 int find_element_by_last_name (char * last_name, int size_of_list, struct Employee list []);
-unsigned int find_element_by_role (int size_of_list, struct Employee list []);
+int find_element_by_role (char * role, int size_of_list, struct Employee list []);
 void start_menu (int size_of_list, struct Employee list []); 
 
 int main () {
@@ -41,6 +41,7 @@ void start_menu (int size_of_list, struct Employee list []) {
         printf("1.Find by First name\n2.Find by Last name\n3.Find by Role\n4.Print active_list\n\n0.Quit\n");
         scanf("%u", &input_option);
         int position = -1;
+        char search_string [200];
         switch (input_option)
         {
         case 0:
@@ -48,7 +49,8 @@ void start_menu (int size_of_list, struct Employee list []) {
             break;
         case 1:
             printf("Enter the first name you want to search for: ");
-            position = find_element_by_first_name(size_of_list, list);
+            scanf("%s", &search_string);
+            position = find_element_by_first_name(search_string, size_of_list, list);
             if (NOT_FOUND == position) {
                 printf("Couldn't find element\n");
                 return_to_menu();
@@ -60,10 +62,9 @@ void start_menu (int size_of_list, struct Employee list []) {
             }
             break;
         case 2:
-            char search_query [200];
             printf("Enter the last name you want to search for: ");
-            scanf("%s", &search_query);
-            position = find_element_by_last_name(search_query, size_of_list, list);
+            scanf("%s", &search_string);
+            position = find_element_by_last_name(search_string, size_of_list, list);
             if (NOT_FOUND == position) {
                 printf("Couldn't find element\n");
                 return_to_menu();
@@ -73,18 +74,19 @@ void start_menu (int size_of_list, struct Employee list []) {
                 return_to_menu();
                 break;
             }
-            break;
         case 3:
             printf("Enter the role you want to search for: ");
-            position = find_element_by_role(size_of_list, list);
+            scanf("%s", &search_string);
+            position = find_element_by_role(search_string, size_of_list, list);
             if (NOT_FOUND == position) {
                 printf("Couldn't find element\n");
                 return_to_menu();
                 break;
+            } else {
+                printf("Found at position %d in the active_list\n", position);
+                return_to_menu();
+                break;
             }
-            printf("Found at position %d in the active_list\n", position);
-            return_to_menu();
-            break;
         case 4:
             print_static_list(size_of_list, list);
             return_to_menu();
@@ -98,11 +100,11 @@ void start_menu (int size_of_list, struct Employee list []) {
 /*
 unsigned int find_element_by_last_name (int size_of_list, struct Employee list []) {
     int found = 0;
-    char search_query [200];
+    char search_string [200];
     printf("Enter the last name you want to search for: ");
-    scanf("%s", &search_query);
+    scanf("%s", &search_string);
     for (int i = 0; i < size_of_list; i++) {
-        if (0 == strcmp(list[i].last_name, search_query)) {
+        if (0 == strcmp(list[i].last_name, search_string)) {
             printf("Found at position %d in the active_list\n", i);
             found = 1;
             break;
@@ -123,66 +125,50 @@ int find_element_by_last_name (char * last_name, int size_of_list, struct Employ
     return NOT_FOUND;
 }
 
-unsigned int find_element_by_first_name (int size_of_list, struct Employee list []) {
-    int found = 0;
-    char first_name [200];
-    printf("Enter the first name you want to search for: ");
-    scanf("%s", &first_name);
-    for (int i = 0; i < size_of_list; i++) {
-        if (!(strcmp(list[i].first_name, first_name))) {
-            printf("Found at position %d in the active_list\n", i);
-            found = 1;
-            break;
+int find_element_by_first_name (char * first_name, int size_of_list, struct Employee list []) {
+    for (int index = 0; index < size_of_list; index++) {
+        if (!(strcmp(list[index].first_name, first_name))) {
+            return index;
         }
     }
-    if (!found) {
-        printf("Couldn't find element\n");
-    }
+    return NOT_FOUND;
 }
 
-unsigned int find_element_by_role (int size_of_list, struct Employee list []) {
-    int found = 0;
-    char role [200];
-    printf("Enter the first name you want to search for: ");
-    scanf("%s", &role);
-    for (int i = 0; i < size_of_list; i++) {
-        if (0 == strcmp(list[i].role, role)) {
-            printf("Found at position %d in the active_list\n", i);
-            found = 1;
-            break;
+int find_element_by_role (char * role, int size_of_list, struct Employee list []) {
+    for (int index = 0; index < size_of_list; index++) {
+        if (!(strcmp(list[index].role, role))) {
+            return index;
         }
     }
-    if (!found) {
-        printf("Couldn't find element\n");
-    }
+    return NOT_FOUND;
 }
 
 void print_static_list (int size_of_list, struct Employee list []) {
     printf("\nDisplaying active_list:\n");
-    for (int i = 0; i < size_of_list; i++) {
-        printf("Employee nr.%d\n", i+1);
-        printf("First name: %s\n", list[i].first_name);
-        printf("Last name: %s\n", list[i].last_name);
-        printf("Age: %u\n", list[i].age);
-        printf("Role: %s\n", list[i].role);
-        printf("Server access: %u\n\n", list[i].has_server_access);
+    for (int index = 0; index < size_of_list; index++) {
+        printf("Employee nr.%d\n", index+1);
+        printf("First name: %s\n", list[index].first_name);
+        printf("Last name: %s\n", list[index].last_name);
+        printf("Age: %u\n", list[index].age);
+        printf("Role: %s\n", list[index].role);
+        printf("Server access: %u\n\n", list[index].has_server_access);
     }
 }
 
-void init_static_list (int n, struct Employee list []) {
+void init_static_list (int size_of_list, struct Employee list []) {
     printf("Input the employee data:\n");
-    for (int i = 1; i <= n; i++) {
-        printf("Employee nr.%d\n", i);
+    for (int index = 1; index <= size_of_list; index++) {
+        printf("Employee nr.%d\n", index);
         printf("First name: ");
-        scanf("%s", &(list+(i-1))->first_name);
+        scanf("%s", &(list+(index-1))->first_name);
         printf("Last name: ");
-        scanf("%s", &(list+(i-1))->last_name);
+        scanf("%s", &(list+(index-1))->last_name);
         printf("Age: ");
-        scanf("%u", &(list+(i-1))->age);
+        scanf("%u", &(list+(index-1))->age);
         printf("Role in the company: ");
-        scanf("%s", &(list+(i-1))->role);
+        scanf("%s", &(list+(index-1))->role);
         printf("Has server access?: ");
-        scanf("%u", &(list+(i-1))->has_server_access);
+        scanf("%u", &(list+(index-1))->has_server_access);
     }
 }
 
