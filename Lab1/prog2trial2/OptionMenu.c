@@ -19,6 +19,7 @@ void print_menu() {
 
 int option_menu(EmployeeList ** active_list) {
     int user_choice;
+    int search_result;
     int position = 0;
     do {
         print_menu();
@@ -44,19 +45,31 @@ int option_menu(EmployeeList ** active_list) {
                 char role[200];
                 printf("Input role to search by: ");
                 scanf("%s", role);
-                search_employee(*active_list, _search_compare_role, role);
+                search_result = search_employee(*active_list, _search_compare_role, role);
+                if (search_result == -1)
+                    printf("No employee with role %s found\n\n", role);
+                else
+                    printf("Found at %d with role %s\n\n", search_result, role);
                 break;
             case 6:
                 char first_name[200];
                 printf("Input first name to search by: ");
                 scanf("%s", first_name);
-                search_employee(*active_list, _search_compare_first_name, first_name);
+                search_result = search_employee(*active_list, _search_compare_first_name, first_name);
+                if (search_result == -1)
+                    printf("No employee with first name %s found\n\n", first_name);
+                else
+                    printf("Found at %d with first name %s\n\n", search_result, first_name);
                 break;
             case 7:
                 char last_name[200];
                 printf("Input last name to search by: ");
                 scanf("%s", last_name);
-                search_employee(*active_list, _search_compare_last_name, last_name);
+                search_result = search_employee(*active_list, _search_compare_last_name, last_name);
+                if (search_result == -1)
+                    printf("No employee with last name %s found\n\n", last_name);
+                else
+                    printf("Found at %d with last name %s\n\n", search_result, last_name);
                 break;
             case 8:
                 sort_employee_list(*active_list, _sort_compare_role);

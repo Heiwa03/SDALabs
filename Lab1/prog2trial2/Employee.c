@@ -188,7 +188,6 @@ unsigned int delete_at_pos_employee (EmployeeList * employee_list, int position)
         printf("NOTICE: Employee list is empty\n");
         return 1;
     }
-    free_employee(&employee_list->list[position]);
     memmove(employee_list->list + position, employee_list->list + position + 1, (employee_list->size_of_list - position - 1) * sizeof(Employee));
     employee_list->size_of_list--;
     Employee * tmp_list = (Employee *) realloc(employee_list->list, employee_list->size_of_list * sizeof(Employee));

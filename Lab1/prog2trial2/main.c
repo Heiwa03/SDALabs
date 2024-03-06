@@ -15,6 +15,7 @@ int main () {
     printf("The list has been created\n");
     printf("The list has been initialized with %d employees\n", populate_employee_list(employee_list));
     option_menu(&employee_list);
+    
     free_employee_list(employee_list);
     return 0;
 }
