@@ -7,7 +7,7 @@
 
 int main () {
     printf("Welcome to the Employee Management System\n");
-    printf("The List requires and initial size to be created\n");
+    printf("The List requires an initial size to be created\n");
     printf("Please enter the size of the list: ");
     int size_of_list;
     scanf("%d", &size_of_list);

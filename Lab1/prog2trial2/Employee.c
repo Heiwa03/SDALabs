@@ -39,10 +39,12 @@ EmployeeList* create_employee_list (int size_of_list) {
 }
 
 void free_employee (Employee * employee) {
-    free(employee->first_name);
-    free(employee->last_name);
-    free(employee->role);
-    free(employee);
+    if (employee != NULL) {
+        free(employee->first_name);
+        free(employee->last_name);
+        free(employee->role);
+        free(employee);
+    }
 }
 
 void free_employee_list (EmployeeList * employee_list) {
@@ -65,11 +67,13 @@ void print_employee_list (EmployeeList * employee_list) {
         printf("Last name: %s\n", employee_list->list[index].last_name);
         printf("Age: %u\n", employee_list->list[index].age);
         printf("Role: %s\n", employee_list->list[index].role);
+        printf("\n");
     }
 }
 
 unsigned int populate_employee_list (EmployeeList * employee_list) {
     for (int index = 0; index < employee_list->size_of_list; index++) {
+        printf("Employee nr.%d\n", index+1);
         char first_name[200];
         char last_name[200];
         unsigned int age;
@@ -178,6 +182,11 @@ unsigned int delete_at_pos_employee (EmployeeList * employee_list, int position)
         return 1;
     } else {
         position--;
+    }
+    if (employee_list->size_of_list == 0) {
+        printf("ERROR: delete_at_pos_employee failed to delete at position %d\n", position);
+        printf("NOTICE: Employee list is empty\n");
+        return 1;
     }
     free_employee(&employee_list->list[position]);
     memmove(employee_list->list + position, employee_list->list + position + 1, (employee_list->size_of_list - position - 1) * sizeof(Employee));
