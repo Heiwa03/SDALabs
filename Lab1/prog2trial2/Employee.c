@@ -77,7 +77,7 @@ unsigned int populate_employee_list (EmployeeList * employee_list) {
         get_employee_data(first_name, last_name, &age, role);
         employee_list->list[index] = *create_employee(first_name, last_name, age, role);
     }
-    return 0;
+    return employee_list->size_of_list;
 }
 
 unsigned int append_new_employee (EmployeeList * employee_list) {

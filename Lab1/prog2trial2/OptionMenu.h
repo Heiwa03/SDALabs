@@ -2,6 +2,6 @@
 #define OPTIONMENU_H
 #include "Employee.h"
 
-int optionMenu(EmployeeList** active_list);
+int option_menu(EmployeeList** active_list);
 
 #endif // OPTIONMENU_H

@@ -17,7 +17,7 @@ void print_menu() {
     printf("Enter your choice: ");
 }
 
-int option_menu(EmployeeList ** active_list) {\
+int option_menu(EmployeeList ** active_list) {
     int user_choice;
     int position = 0;
     do {
