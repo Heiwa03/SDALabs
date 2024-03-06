@@ -21,7 +21,10 @@ void get_employee_data (char * first_name, char * last_name, unsigned int * age,
 Employee* create_employee (char * first_name, char * last_name, unsigned int age, char * role);
 void free_employee (Employee * employee);
 void print_employee (Employee * employee);
-void add_new_employee (EmployeeList * employee_list);  
+unsigned int append_new_employee (EmployeeList * employee_list); 
+unsigned int prepend_new_employee (EmployeeList * employee_list); 
+unsigned int insert_at_pos_new_employee (EmployeeList * employee_list, int position);
+unsigned int delete_employee (EmployeeList * employee_list, int position);
 
 EmployeeList* create_employee_list (int size_of_list);
 void free_employee_list (EmployeeList * employee_list);

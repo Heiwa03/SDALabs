@@ -12,6 +12,10 @@ void get_employee_data (char * first_name, char * last_name, unsigned int * age,
 }
 Employee* create_employee (char * first_name, char * last_name, unsigned int age, char * role) {
     Employee * employee = (Employee *) malloc(sizeof(Employee));
+    if (employee == NULL) {
+        printf("ERROR: create_employee failed to allocate temp employee memory\n");
+        return NULL;
+    }
     employee->first_name = (char *) malloc(strlen(first_name) + 1);
     employee->last_name = (char *) malloc(strlen(last_name) + 1);
     employee->role = (char *) malloc(strlen(role) + 1);
@@ -23,10 +27,14 @@ Employee* create_employee (char * first_name, char * last_name, unsigned int age
 }
 
 EmployeeList* create_employee_list (int size_of_list) {
-    EmployeeList * employee_list = (EmployeeList *) malloc(sizeof(EmployeeList));
-    employee_list->list = (Employee *) malloc(size_of_list * sizeof(Employee));
-    employee_list->size_of_list = size_of_list;
-    return employee_list;
+    EmployeeList * tmp_employee_list = (EmployeeList *) malloc(sizeof(EmployeeList));
+    if (tmp_employee_list == NULL) {
+        printf("ERROR: create_employee_list failed to allocate tmp_employee_list memory\n");
+        return NULL;
+    }
+    tmp_employee_list->list = (Employee *) malloc(size_of_list * sizeof(Employee));
+    tmp_employee_list->size_of_list = size_of_list;
+    return tmp_employee_list;
 }
 
 void free_employee (Employee * employee) {
@@ -71,14 +79,58 @@ unsigned int populate_employee_list (EmployeeList * employee_list) {
     return 0;
 }
 
-void add_new_employee (EmployeeList * employee_list) {
+unsigned int append_new_employee (EmployeeList * employee_list) {
     char first_name[200];
     char last_name[200];
     unsigned int age;
     char role[200];
     get_employee_data(first_name, last_name, &age, role);
     Employee * employee = create_employee(first_name, last_name, age, role);
+    if (employee == NULL) {
+        printf("ERROR: add_new_employee failed to allocate temp employee memory\n");
+        return 1;
+    }
     employee_list->size_of_list++;
-    employee_list->list = (Employee *) realloc(employee_list->list, employee_list->size_of_list * sizeof(Employee));
-    employee_list->list[employee_list->size_of_list-1] = *employee;
+    Employee * tmp_list = (Employee *) realloc(employee_list->list, employee_list->size_of_list * sizeof(Employee));
+    // In case realloc fails, the list will not be altered and the size will be decremented.
+    if (tmp_list == NULL) {
+        employee_list->size_of_list--;
+        printf("ERROR: add_new_employee failed to reallocate employee_list memory\n");
+        printf("NOTICE: List will not be altered\n");
+        return 1;
+    } else {
+        employee_list->list = tmp_list;
+        employee_list->list[employee_list->size_of_list-1] = *employee;
+    }
+}
+
+unsigned int prepend_new_employee (EmployeeList * employee_list) {
+    char first_name[200];
+    char last_name[200];
+    unsigned int age;
+    char role[200];
+    get_employee_data(first_name, last_name, &age, role);
+    Employee * employee = create_employee(first_name, last_name, age, role);
+    if (employee == NULL) {
+        printf("ERROR: add_new_employee failed to allocate temp employee memory\n");
+        return 1;
+    }
+    employee_list->size_of_list++;
+    Employee * tmp_list = (Employee *) realloc(employee_list->list, employee_list->size_of_list * sizeof(Employee));
+    // In case realloc fails, the list will not be altered and the size will be decremented.
+    if (tmp_list == NULL) {
+        employee_list->size_of_list--;
+        printf("ERROR: add_new_employee failed to reallocate employee_list memory\n");
+        printf("NOTICE: List will not be altered\n");
+        return 1;
+    } else {
+        employee_list->list = tmp_list;
+        /* // Not very efficient but does the job too
+        for (int index = employee_list->size_of_list-1; index > 0; index--) {
+            employee_list->list[index] = employee_list->list[index-1];
+        }
+        */
+        memmove(employee_list->list + 1, employee_list->list, (employee_list->size_of_list - 1) * sizeof(Employee));
+        employee_list->list[0] = *employee;
+    }
 }
