@@ -100,6 +100,7 @@ unsigned int append_new_employee (EmployeeList * employee_list) {
         return 1;
     } else {
         employee_list->list = tmp_list;
+        tmp_list = NULL;
         employee_list->list[employee_list->size_of_list-1] = *employee;
     }
 }
@@ -125,6 +126,7 @@ unsigned int prepend_new_employee (EmployeeList * employee_list) {
         return 1;
     } else {
         employee_list->list = tmp_list;
+        tmp_list = NULL;
         /* // Not very efficient but does the job too
         for (int index = employee_list->size_of_list-1; index > 0; index--) {
             employee_list->list[index] = employee_list->list[index-1];
@@ -132,5 +134,36 @@ unsigned int prepend_new_employee (EmployeeList * employee_list) {
         */
         memmove(employee_list->list + 1, employee_list->list, (employee_list->size_of_list - 1) * sizeof(Employee));
         employee_list->list[0] = *employee;
+    }
+}
+unsigned int insert_at_pos_new_employee (EmployeeList * employee_list, int position) {
+    if (position < 0 || position > employee_list->size_of_list) {
+        printf("ERROR: insert_at_pos_new_employee failed to insert at position %d\n", position);
+        printf("NOTICE: Position is out of bounds\n");
+        return 1;
+    }
+    char first_name[200];
+    char last_name[200];
+    unsigned int age;
+    char role[200];
+    get_employee_data(first_name, last_name, &age, role);
+    Employee * employee = create_employee(first_name, last_name, age, role);
+    if (employee == NULL) {
+        printf("ERROR: add_new_employee failed to allocate temp employee memory\n");
+        return 1;
+    }
+    employee_list->size_of_list++;
+    Employee * tmp_list = (Employee *) realloc(employee_list->list, employee_list->size_of_list * sizeof(Employee));
+    // In case realloc fails, the list will not be altered and the size will be decremented.
+    if (tmp_list == NULL) {
+        employee_list->size_of_list--;
+        printf("ERROR: add_new_employee failed to reallocate employee_list memory\n");
+        printf("NOTICE: List will not be altered\n");
+        return 1;
+    } else {
+        employee_list->list = tmp_list;
+        tmp_list = NULL;
+        memmove(employee_list->list + position + 1, employee_list->list + position, (employee_list->size_of_list - position - 1) * sizeof(Employee));
+        employee_list->list[position] = *employee;
     }
 }
