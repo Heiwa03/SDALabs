@@ -169,3 +169,26 @@ unsigned int insert_at_pos_new_employee (EmployeeList * employee_list, int posit
         employee_list->list[position] = *employee;
     }
 }
+
+unsigned int delete_at_pos_employee (EmployeeList * employee_list, int position) {
+    if (position < 1 || position > employee_list->size_of_list) {
+        printf("ERROR: delete_at_pos_employee failed to delete at position %d\n", position);
+        printf("NOTICE: Position is out of bounds\n");
+        return 1;
+    } else {
+        position--;
+    }
+    free_employee(&employee_list->list[position]);
+    memmove(employee_list->list + position, employee_list->list + position + 1, (employee_list->size_of_list - position - 1) * sizeof(Employee));
+    employee_list->size_of_list--;
+    Employee * tmp_list = (Employee *) realloc(employee_list->list, employee_list->size_of_list * sizeof(Employee));
+    if (tmp_list == NULL) {
+        printf("ERROR: delete_at_pos_employee failed to reallocate employee_list memory\n");
+        printf("NOTICE: List will not be altered\n");
+        employee_list->size_of_list++;
+        return 1;
+    } else {
+        employee_list->list = tmp_list;
+        tmp_list = NULL;
+    }
+}
