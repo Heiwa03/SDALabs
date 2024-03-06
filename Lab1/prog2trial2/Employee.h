@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct Employee {
     char * first_name;
@@ -32,5 +33,7 @@ unsigned int prepend_new_employee (EmployeeList * employee_list);
 unsigned int insert_at_pos_new_employee (EmployeeList * employee_list, int position);
 unsigned int delete_at_pos_employee (EmployeeList * employee_list, int position);
 
+int search_employee(EmployeeList* employee_list, SearchCompareFunc compare, const char* value);
+void sort_employee_list(EmployeeList* employee_list, SortCompareFunc compare);
 
 #endif // EMPLOYEE_H

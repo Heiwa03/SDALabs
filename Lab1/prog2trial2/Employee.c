@@ -1,3 +1,4 @@
+#define NOT_FOUND -1
 #include "Employee.h"
 
 void get_employee_data (char * first_name, char * last_name, unsigned int * age, char * role) {
@@ -191,4 +192,50 @@ unsigned int delete_at_pos_employee (EmployeeList * employee_list, int position)
         employee_list->list = tmp_list;
         tmp_list = NULL;
     }
+}
+
+typedef bool (*SearchCompareFunc)(Employee*, const char*);
+
+int search_employee(EmployeeList* employee_list, SearchCompareFunc compare, const char* value) {
+    for (int index = 0; index < employee_list->size_of_list; index++) {
+        if (compare(&employee_list->list[index], value)) {
+            return index;
+        }
+    }
+    return NOT_FOUND;
+}
+bool _search_compare_first_name(Employee* employee, const char* first_name) {
+    return strcmp(employee->first_name, first_name) == 0;
+}
+
+bool _search_compare_last_name(Employee* employee, const char* last_name) {
+    return strcmp(employee->last_name, last_name) == 0;
+}
+
+bool _search_compare_role(Employee* employee, const char* role) {
+    return strcmp(employee->role, role) == 0;
+}
+
+typedef int (*SortCompareFunc)(const void*, const void*);
+
+void sort_employee_list(EmployeeList* employee_list, SortCompareFunc compare) {
+    qsort(employee_list->list, employee_list->size_of_list, sizeof(Employee), compare);
+}
+
+int _sort_compare_first_name(const void* a, const void* b) {
+    Employee* employee_a = (Employee*)a;
+    Employee* employee_b = (Employee*)b;
+    return strcmp(employee_a->first_name, employee_b->first_name);
+}
+
+int _sort_compare_by_last_name(const void* a, const void* b) {
+    Employee* employee_a = (Employee*)a;
+    Employee* employee_b = (Employee*)b;
+    return strcmp(employee_a->last_name, employee_b->last_name);
+}
+
+int _sort_compare_by_role(const void* a, const void* b) {
+    Employee* employee_a = (Employee*)a;
+    Employee* employee_b = (Employee*)b;
+    return strcmp(employee_a->role, employee_b->role);
 }
