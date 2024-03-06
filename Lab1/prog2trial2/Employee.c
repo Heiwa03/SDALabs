@@ -1,4 +1,5 @@
 #include "Employee.h"
+
 void get_employee_data (char * first_name, char * last_name, unsigned int * age, char * role) {
     printf("First name: ");
     scanf("%s", first_name);
