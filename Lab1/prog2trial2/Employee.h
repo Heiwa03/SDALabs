@@ -17,6 +17,11 @@ typedef struct EmployeeList {
     int size_of_list;
 } EmployeeList;
 
-
+Employee* create_employee (char * first_name, char * last_name, unsigned int age, char * role);
+EmployeeList* create_employee_list (int size_of_list);
+void free_employee (Employee * employee);
+void free_employee_list (EmployeeList * employee_list);
+void print_employee (Employee * employee);
+void print_employee_list (EmployeeList * employee_list);
 
 #endif // EMPLOYEE_H
