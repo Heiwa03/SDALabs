@@ -16,6 +16,8 @@ int main () {
     print_employee_list(current_employee_list);
     prepend_new_employee(current_employee_list);
     print_employee_list(current_employee_list);
+    insert_at_pos_new_employee(current_employee_list, 2);
+    print_employee_list(current_employee_list);
     free_employee_list(current_employee_list);
 
 

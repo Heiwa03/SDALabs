@@ -137,10 +137,12 @@ unsigned int prepend_new_employee (EmployeeList * employee_list) {
     }
 }
 unsigned int insert_at_pos_new_employee (EmployeeList * employee_list, int position) {
-    if (position < 0 || position > employee_list->size_of_list) {
+    if (position < 1 || position > employee_list->size_of_list) {
         printf("ERROR: insert_at_pos_new_employee failed to insert at position %d\n", position);
         printf("NOTICE: Position is out of bounds\n");
         return 1;
+    } else {
+        position--;
     }
     char first_name[200];
     char last_name[200];
