@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Employee.h"
+#include "OptionMenu.h"
 
 int main () {
     EmployeeList * current_employee_list = create_employee_list(2);

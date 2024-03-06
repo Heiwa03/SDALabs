@@ -36,4 +36,17 @@ unsigned int delete_at_pos_employee (EmployeeList * employee_list, int position)
 int search_employee(EmployeeList* employee_list, SearchCompareFunc compare, const char* value);
 void sort_employee_list(EmployeeList* employee_list, SortCompareFunc compare);
 
+// helper functions
+bool _search_compare_role(Employee* employee, const char* role);
+bool _search_compare_first_name(Employee* employee, const char* first_name);
+bool _search_compare_last_name(Employee* employee, const char* last_name);
+
+int _sort_compare_role(const void* a, const void* b);
+int _sort_compare_first_name(const void* a, const void* b);
+int _sort_compare_last_name(const void* a, const void* b);
+
+typedef bool (*SearchCompareFunc)(Employee*, const char*);
+typedef int (*SortCompareFunc)(const void*, const void*);
+
+
 #endif // EMPLOYEE_H

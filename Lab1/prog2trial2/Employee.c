@@ -228,13 +228,13 @@ int _sort_compare_first_name(const void* a, const void* b) {
     return strcmp(employee_a->first_name, employee_b->first_name);
 }
 
-int _sort_compare_by_last_name(const void* a, const void* b) {
+int _sort_compare_last_name(const void* a, const void* b) {
     Employee* employee_a = (Employee*)a;
     Employee* employee_b = (Employee*)b;
     return strcmp(employee_a->last_name, employee_b->last_name);
 }
 
-int _sort_compare_by_role(const void* a, const void* b) {
+int _sort_compare_role(const void* a, const void* b) {
     Employee* employee_a = (Employee*)a;
     Employee* employee_b = (Employee*)b;
     return strcmp(employee_a->role, employee_b->role);
