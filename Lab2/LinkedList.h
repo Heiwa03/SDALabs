@@ -41,9 +41,4 @@ void invertList(LinkedList * list);
 int searchList(LinkedList* list, char* field, char* value);
 void sortList(LinkedList* list, char* field);
 
-
-
-
-
-
 #endif // LINKEDLIST_H
