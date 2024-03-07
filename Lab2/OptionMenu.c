@@ -1,4 +1,4 @@
-#define QUIT 7
+
 #include "OptionMenu.h"
 
 void print_menu_options() {
@@ -103,11 +103,11 @@ unsigned int open_option_menu(LinkedList * list) {
     char ram[50];
     char price[50];
     unsigned int option;
-    print_menu_options();
-    printf("Choose an option: ");
-    scanf("%u", &option);
-    getchar();
     while (option != QUIT) {
+        print_menu_options();
+        printf("Choose an option: ");
+        scanf("%u", &option);
+        getchar();
         switch (option) {
             case 1:
                 printf("Enter new laptop data:\n");

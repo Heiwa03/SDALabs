@@ -24,6 +24,7 @@ typedef struct LinkedList {
 } LinkedList;
 
 LinkedList * createLinkedList();
+void get_laptop_data(char * brand, char * model, char * processor, char * ram, char * price);
 Laptop * createLaptop(char * brand, char * model, char * processor, char * ram, char * price);
 Node * createNode(Laptop * laptop);
 void push_front(LinkedList * list, Laptop * laptop);
@@ -39,6 +40,7 @@ void freeLaptop(Laptop * laptop);
 void invertList(LinkedList * list);
 int searchList(LinkedList* list, char* field, char* value);
 void sortList(LinkedList* list, char* field);
+
 
 
 

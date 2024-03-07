@@ -1,9 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "LinkedList.h"
+#include "OptionMenu.h"
 
 int main () {
     LinkedList * list = createLinkedList();
-    
-    return 0;
+    if (list == NULL) {
+        printf("Error creating the list\n");
+        return 1;
+    }
+    if (open_option_menu(list) == QUIT) {
+        printf("Exiting...\n");
+        return 0;
+    }
+    return 1;
 }
