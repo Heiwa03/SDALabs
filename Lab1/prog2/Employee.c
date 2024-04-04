@@ -1,4 +1,5 @@
 #define NOT_FOUND -1
+#define MAX_STR_SIZE 200
 #include "Employee.h"
 
 void get_employee_data (char * first_name, char * last_name, unsigned int * age, char * role) {
@@ -74,10 +75,10 @@ void print_employee_list (EmployeeList * employee_list) {
 unsigned int populate_employee_list (EmployeeList * employee_list) {
     for (int index = 0; index < employee_list->size_of_list; index++) {
         printf("Employee nr.%d\n", index+1);
-        char first_name[200];
-        char last_name[200];
+        char first_name[MAX_STR_SIZE];
+        char last_name[MAX_STR_SIZE];
         unsigned int age;
-        char role[200];
+        char role[MAX_STR_SIZE];
         get_employee_data(first_name, last_name, &age, role);
         employee_list->list[index] = *create_employee(first_name, last_name, age, role);
     }
@@ -85,10 +86,10 @@ unsigned int populate_employee_list (EmployeeList * employee_list) {
 }
 
 unsigned int append_new_employee (EmployeeList * employee_list) {
-    char first_name[200];
-    char last_name[200];
+    char first_name[MAX_STR_SIZE];
+    char last_name[MAX_STR_SIZE];
     unsigned int age;
-    char role[200];
+    char role[MAX_STR_SIZE];
     get_employee_data(first_name, last_name, &age, role);
     Employee * employee = create_employee(first_name, last_name, age, role);
     if (employee == NULL) {
@@ -111,10 +112,10 @@ unsigned int append_new_employee (EmployeeList * employee_list) {
 }
 
 unsigned int prepend_new_employee (EmployeeList * employee_list) {
-    char first_name[200];
-    char last_name[200];
+    char first_name[MAX_STR_SIZE];
+    char last_name[MAX_STR_SIZE];
     unsigned int age;
-    char role[200];
+    char role[MAX_STR_SIZE];
     get_employee_data(first_name, last_name, &age, role);
     Employee * employee = create_employee(first_name, last_name, age, role);
     if (employee == NULL) {
@@ -149,10 +150,10 @@ unsigned int insert_at_pos_new_employee (EmployeeList * employee_list, int posit
     } else {
         position--;
     }
-    char first_name[200];
-    char last_name[200];
+    char first_name[MAX_STR_SIZE];
+    char last_name[MAX_STR_SIZE];
     unsigned int age;
-    char role[200];
+    char role[MAX_STR_SIZE];
     get_employee_data(first_name, last_name, &age, role);
     Employee * employee = create_employee(first_name, last_name, age, role);
     if (employee == NULL) {
