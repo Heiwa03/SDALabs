@@ -4,7 +4,7 @@
 #include "OptionMenu.h"
 
 int main () {
-    LinkedList * list = createLinkedList();
+    LinkedList * list = create_linked_list();
     if (list == NULL) {
         printf("Error creating the list\n");
         return 1;

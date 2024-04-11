@@ -1,6 +1,6 @@
 #include "LinkedList.h"
 
-LinkedList * createLinkedList() {
+LinkedList * create_linked_list() {
     LinkedList * list = (LinkedList *) malloc(sizeof(LinkedList));
     list->head = NULL;
     list->size = 0;
@@ -24,7 +24,7 @@ void get_laptop_data (char * brand, char * model, char * processor, char * ram, 
     price[strlen(price) - 1] = '\0';
 }
 
-Laptop * createLaptop(char * brand, char * model, char * processor, char * ram, char * price) {
+Laptop * create_laptop(char * brand, char * model, char * processor, char * ram, char * price) {
     Laptop * laptop = (Laptop *) malloc(sizeof(Laptop));
     laptop->brand = (char *) malloc(strlen(brand) + 1);
     laptop->model = (char *) malloc(strlen(model) + 1);
@@ -39,7 +39,7 @@ Laptop * createLaptop(char * brand, char * model, char * processor, char * ram, 
     return laptop;
 }
 
-Node * createNode(Laptop * laptop) {
+Node * create_node(Laptop * laptop) {
     Node * node = (Node *) malloc(sizeof(Node));
     node->laptop = laptop;
     node->next = NULL;
@@ -47,14 +47,14 @@ Node * createNode(Laptop * laptop) {
 }
 
 void push_front(LinkedList * list, Laptop * laptop) {
-    Node * node = createNode(laptop);
+    Node * node = create_node(laptop);
     node->next = list->head;
     list->head = node;
     list->size++;
 }
 
 void push_back(LinkedList * list, Laptop * laptop) {
-    Node * node = createNode(laptop);
+    Node * node = create_node(laptop);
     if (list->head == NULL) {
         list->head = node;
     } else {
@@ -77,7 +77,7 @@ void insert(LinkedList * list, Laptop * laptop, int index) {
     } else if (index == list->size) {
         push_back(list, laptop);
     } else {
-        Node * node = createNode(laptop);
+        Node * node = create_node(laptop);
         Node * current = list->head;
         for (int i = 0; i < index - 1; i++) {
             current = current->next;
@@ -95,7 +95,7 @@ void pop_front(LinkedList * list) {
     }
     Node * temp = list->head;
     list->head = list->head->next;
-    freeNode(temp);
+    free_node(temp);
     list->size--;
 }
 
@@ -105,14 +105,14 @@ void pop_back(LinkedList * list) {
         return;
     }
     if (list->head->next == NULL) {
-        freeNode(list->head);
+        free_node(list->head);
         list->head = NULL;
     } else {
         Node * current = list->head;
         while (current->next->next != NULL) {
             current = current->next;
         }
-        freeNode(current->next);
+        free_node(current->next);
         current->next = NULL;
     }
     list->size--;
@@ -134,12 +134,12 @@ void pop_index(LinkedList * list, int index) {
         }
         Node * temp = current->next;
         current->next = current->next->next;
-        freeNode(temp);
+        free_node(temp);
         list->size--;
     }
 }
 
-void printList(LinkedList * list) {
+void print_list(LinkedList * list) {
     if (list->head == NULL) {
         printf("List is empty\n");
         return;
@@ -156,19 +156,19 @@ void printList(LinkedList * list) {
     }
 }
 
-void freeList(LinkedList * list) {
+void free_list(LinkedList * list) {
     while (list->head != NULL) {
         pop_front(list);
     }
     free(list);
 }
 
-void freeNode(Node * node) {
-    freeLaptop(node->laptop);
+void free_node(Node * node) {
+    free_laptop(node->laptop);
     free(node);
 }
 
-void freeLaptop(Laptop * laptop) {
+void free_laptop(Laptop * laptop) {
     free(laptop->brand);
     free(laptop->model);
     free(laptop->processor);
@@ -177,7 +177,7 @@ void freeLaptop(Laptop * laptop) {
     free(laptop);
 }
 
-void invertList(LinkedList * list) {
+void invert_list(LinkedList * list) {
     if (list->head == NULL) {
         printf("List is empty\n");
         return;
@@ -194,7 +194,7 @@ void invertList(LinkedList * list) {
     list->head = prev;
 }
 
-int searchList(LinkedList* list, char* field, char* value) {
+int search_list(LinkedList* list, char* field, char* value) {
     Node* current = list->head;
     int index = 0;
 
@@ -217,7 +217,7 @@ int searchList(LinkedList* list, char* field, char* value) {
     return -1; // return -1 if no matching node is found
 }
 
-void sortList(LinkedList* list, char* field) {
+void sort_list(LinkedList* list, char* field) {
     if (list->size < 2) {
         return; // list is already sorted if it has less than 2 elements
     }

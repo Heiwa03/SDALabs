@@ -8,7 +8,8 @@ void print_menu_options() {
     printf("4. Invert the list\n");
     printf("5. Search the list\n");
     printf("6. Sort the list\n");
-    printf("7. Exit\n");
+    printf("7. Insert at position\n");
+    printf("8. Exit\n");
 }
 
 void print_sort_menu_options() {
@@ -57,7 +58,7 @@ unsigned int open_search_option_menu(LinkedList * list) {
             printf("Invalid option\n");
             return open_search_option_menu(list);
     }
-    int index = searchList(list, field, value);
+    int index = search_list(list, field, value);
     if (index == -1) {
         printf("Laptop not found\n");
     } else {
@@ -74,19 +75,19 @@ unsigned int open_sort_option_menu(LinkedList * list) {
     getchar();
     switch (option) {
         case 1:
-            sortList(list, "brand");
+            sort_list(list, "brand");
             break;
         case 2:
-            sortList(list, "model");
+            sort_list(list, "model");
             break;
         case 3:
-            sortList(list, "processor");
+            sort_list(list, "processor");
             break;
         case 4:
-            sortList(list, "ram");
+            sort_list(list, "ram");
             break;
         case 5:
-            sortList(list, "price");
+            sort_list(list, "price");
             break;
         default:
             printf("Invalid option\n");
@@ -112,7 +113,7 @@ unsigned int open_option_menu(LinkedList * list) {
             case 1:
                 printf("Enter new laptop data:\n");
                 get_laptop_data(brand, model, processor, ram, price);
-                push_back(list, createLaptop(brand, model, processor, ram, price));
+                push_back(list, create_laptop(brand, model, processor, ram, price));
                 break;
             case 2:
                 printf("Enter the index of the laptop to remove: ");
@@ -120,10 +121,10 @@ unsigned int open_option_menu(LinkedList * list) {
                 pop_index(list, option);
                 break;
             case 3:
-                printList(list);
+                print_list(list);
                 break;
             case 4:
-                invertList(list);
+                invert_list(list);
                 printf("List inverted\n");
                 break;
             case 5:
@@ -132,6 +133,15 @@ unsigned int open_option_menu(LinkedList * list) {
             case 6:
                 if (open_sort_option_menu(list) == QUIT)
                     break;
+            case 7:
+                int index_for_insert;
+                printf("Enter the position you want to insert at: ");
+                scanf("%d", &index_for_insert);
+                getchar(); // Get the newline that wants to ruin my life
+                printf("Enter new laptop data:\n");
+                get_laptop_data(brand, model, processor, ram, price);
+                insert(list, create_laptop(brand, model, processor, ram, price), index_for_insert);
+                break;
             default:
                 printf("Invalid option\n");
                 break;

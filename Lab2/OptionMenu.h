@@ -1,7 +1,7 @@
 #ifndef OPTIONMENU_H
 #define OPTIONMENU_H
 
-#define QUIT 7
+#define QUIT 8
 
 #include "LinkedList.h"
 #include "stdio.h"

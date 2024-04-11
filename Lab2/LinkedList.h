@@ -23,22 +23,22 @@ typedef struct LinkedList {
     int size;
 } LinkedList;
 
-LinkedList * createLinkedList();
+LinkedList * create_linked_list();
 void get_laptop_data(char * brand, char * model, char * processor, char * ram, char * price);
-Laptop * createLaptop(char * brand, char * model, char * processor, char * ram, char * price);
-Node * createNode(Laptop * laptop);
+Laptop * create_laptop(char * brand, char * model, char * processor, char * ram, char * price);
+Node * create_node(Laptop * laptop);
 void push_front(LinkedList * list, Laptop * laptop);
 void push_back(LinkedList * list, Laptop * laptop);
 void insert(LinkedList * list, Laptop * laptop, int index);
 void pop_front(LinkedList * list);
 void pop_back(LinkedList * list);
 void pop_index(LinkedList * list, int index);
-void printList(LinkedList * list);
-void freeList(LinkedList * list);
-void freeNode(Node * node);
-void freeLaptop(Laptop * laptop);
-void invertList(LinkedList * list);
-int searchList(LinkedList* list, char* field, char* value);
-void sortList(LinkedList* list, char* field);
+void print_list(LinkedList * list);
+void free_list(LinkedList * list);
+void free_node(Node * node);
+void free_laptop(Laptop * laptop);
+void invert_list(LinkedList * list);
+int search_list(LinkedList* list, char* field, char* value);
+void sort_list(LinkedList* list, char* field);
 
 #endif // LINKEDLIST_H
