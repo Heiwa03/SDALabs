@@ -259,3 +259,9 @@ void sort_list(LinkedList* list, char* field) {
     while (swapped);
 }
 
+int _check_not_out_of_bounds_index (LinkedList *list, int index) {
+    if (index > list->size || index < 0) {
+        return 0;
+    }
+    return 1;
+}

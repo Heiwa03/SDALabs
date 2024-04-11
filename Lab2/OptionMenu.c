@@ -136,8 +136,16 @@ unsigned int open_option_menu(LinkedList * list) {
             case 7:
                 int index_for_insert;
                 printf("Enter the position you want to insert at: ");
-                scanf("%d", &index_for_insert);
-                getchar(); // Get the newline that wants to ruin my life
+                if (!(scanf("%d", &index_for_insert))) {
+                    printf("Invalid index\n");
+                    break;
+                    getchar();// Get the newline that wants to ruin my life
+                }
+                getchar();
+                if (!(_check_not_out_of_bounds_index(list, index_for_insert))) {
+                    printf("Invalid index\n");
+                    break;
+                }
                 printf("Enter new laptop data:\n");
                 get_laptop_data(brand, model, processor, ram, price);
                 insert(list, create_laptop(brand, model, processor, ram, price), index_for_insert);

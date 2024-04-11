@@ -41,4 +41,5 @@ void invert_list(LinkedList * list);
 int search_list(LinkedList* list, char* field, char* value);
 void sort_list(LinkedList* list, char* field);
 
+int _check_not_out_of_bounds_index (LinkedList *list, int index);
 #endif // LINKEDLIST_H
