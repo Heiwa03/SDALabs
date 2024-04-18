@@ -8,6 +8,7 @@
                 "-fdiagnostics-color=always",
                 "BinaryTree.c",
                 "Menu.c",
+                "Laptop.c",
                 "-g",
                 "${file}",
                 "-o",

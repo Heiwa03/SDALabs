@@ -6,12 +6,20 @@ Node *create_node(unsigned int key) {
         printf("Memory allocation failed\n");
         return NULL;
     }
-
+    char brand[50];
+    char model[50];
+    char processor[50];
+    char ram[50];
+    char price[50];
+    get_laptop_data(brand, model, processor, ram, price);
+    
     new_node->key = key;
     new_node->left = NULL;
     new_node->right = NULL;
     new_node->height = 0;
     new_node->depth = 0;
+    Laptop * new_laptop = create_laptop(brand, model, processor, ram, price);
+    new_node->laptop = new_laptop;
 
     return new_node;
 }
@@ -20,7 +28,7 @@ void free_node(Node *node) {
     if (node == NULL) {
         return;
     }
-
+    free_laptop(node->laptop);
     free_node(node->left);
     free_node(node->right);
 
@@ -145,7 +153,8 @@ void _print_inorder(Node *node) {
     }
 
     _print_inorder(node->left);
-    printf("%u ", node->key);
+    printf("%u\n", node->key);
+    print_laptop(node->laptop);
     _print_inorder(node->right);
 }
 
@@ -155,6 +164,7 @@ void _print_preorder(Node *node) {
     }
 
     printf("%u ", node->key);
+    print_laptop(node->laptop);
     _print_preorder(node->left);
     _print_preorder(node->right);
 }
@@ -167,6 +177,7 @@ void _print_postorder(Node *node) {
     _print_postorder(node->left);
     _print_postorder(node->right);
     printf("%u ", node->key);
+    print_laptop(node->laptop);
 }
 
 void print_tree(BinaryTree *tree, unsigned int print_type) {
@@ -269,6 +280,7 @@ void _get_leaves(Node *node) {
 
     if (node->left == NULL && node->right == NULL) {
         printf("%u ", node->key);
+        print_laptop(node->laptop);
     } else {
         _get_leaves(node->left);
         _get_leaves(node->right);
@@ -361,6 +373,7 @@ void _print_node_properties(Node *node, unsigned int get_height, unsigned int ge
     if (get_nr_of_children) {
         printf(", Nr of children: %u", get_node_nr_of_children(node));
     }
+    print_laptop(node->laptop);
     printf("\n");
 
     _print_node_properties(node->right, get_height, get_depth, get_nr_of_children);

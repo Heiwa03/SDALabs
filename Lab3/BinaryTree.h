@@ -6,6 +6,7 @@
 #include <string.h>
 #include <limits.h>
 #include <stdbool.h>
+#include "Laptop.h"
 
 #define IN_ORDER 1
 #define PRE_ORDER 2
@@ -24,6 +25,7 @@ typedef struct Node {
     unsigned int nr_of_children;
     unsigned int height;
     unsigned int depth;
+    struct Laptop *laptop;
 } Node;
 
 typedef struct BinaryTree {
