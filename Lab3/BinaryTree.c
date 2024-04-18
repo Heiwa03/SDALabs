@@ -1,19 +1,19 @@
 #include "BinaryTree.h"
 
 Node *create_node(unsigned int key) {
-    Node *newNode = (Node *)malloc(sizeof(Node));
-    if (newNode == NULL) {
+    Node *new_node = (Node *)malloc(sizeof(Node));
+    if (new_node == NULL) {
         printf("Memory allocation failed\n");
         return NULL;
     }
 
-    newNode->key = key;
-    newNode->left = NULL;
-    newNode->right = NULL;
-    newNode->height = 0;
-    newNode->depth = 0;
+    new_node->key = key;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    new_node->height = 0;
+    new_node->depth = 0;
 
-    return newNode;
+    return new_node;
 }
 
 void free_node(Node *node) {
@@ -48,16 +48,16 @@ void clear_tree(BinaryTree *tree) {
 }
 
 BinaryTree *create_binary_tree() {
-    BinaryTree *newTree = (BinaryTree *)malloc(sizeof(BinaryTree));
-    if (newTree == NULL) {
+    BinaryTree *new_tree = (BinaryTree *)malloc(sizeof(BinaryTree));
+    if (new_tree == NULL) {
         printf("Memory allocation failed\n");
         return NULL;
     }
 
-    newTree->root = NULL;
-    newTree->nr_of_nodes = 0;
+    new_tree->root = NULL;
+    new_tree->nr_of_nodes = 0;
 
-    return newTree;
+    return new_tree;
 }
 
 int _find_max_value(int a, int b) {
@@ -66,9 +66,9 @@ int _find_max_value(int a, int b) {
 
 Node *_insert_node(Node *node, unsigned int key, int depth) {
     if (node == NULL) {
-        Node *newNode = create_node(key);
-        newNode->depth = depth;
-        return newNode;
+        Node *new_node = create_node(key);
+        new_node->depth = depth;
+        return new_node;
     }
 
     if (key < node->key) {
