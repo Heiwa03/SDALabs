@@ -1,24 +1,17 @@
 #include "BinaryTree.h"
 
-Node *create_node(unsigned int key) {
+Node *create_node(unsigned int key, Laptop *new_laptop) {
     Node *new_node = (Node *)malloc(sizeof(Node));
     if (new_node == NULL) {
         printf("Memory allocation failed\n");
         return NULL;
     }
-    char brand[50];
-    char model[50];
-    char processor[50];
-    char ram[50];
-    char price[50];
-    get_laptop_data(brand, model, processor, ram, price);
     
     new_node->key = key;
     new_node->left = NULL;
     new_node->right = NULL;
     new_node->height = 0;
     new_node->depth = 0;
-    Laptop * new_laptop = create_laptop(brand, model, processor, ram, price);
     new_node->laptop = new_laptop;
 
     return new_node;
@@ -72,17 +65,17 @@ int _find_max_value(int a, int b) {
     return (a > b) ? a : b;
 }
 
-Node *_insert_node(Node *node, unsigned int key, int depth) {
+Node *_insert_node(Node *node, unsigned int key, Laptop *new_laptop, int depth) {
     if (node == NULL) {
-        Node *new_node = create_node(key);
+        Node *new_node = create_node(key, new_laptop);
         new_node->depth = depth;
         return new_node;
     }
 
     if (key < node->key) {
-        node->left = _insert_node(node->left, key, depth + 1);
+        node->left = _insert_node(node->left, key,new_laptop, depth + 1);
     } else if (key > node->key) {
-        node->right = _insert_node(node->right, key, depth + 1);
+        node->right = _insert_node(node->right, key, new_laptop, depth + 1);
     }
 
     node->height = 1 + _find_max_value((node->left ? node->left->height : -1), 
@@ -91,13 +84,13 @@ Node *_insert_node(Node *node, unsigned int key, int depth) {
     return node;
 }
 
-void insert_value(BinaryTree *tree, unsigned int key) {
+void insert_value(BinaryTree *tree, unsigned int key, Laptop *new_laptop) {
     if (tree == NULL) {
         printf("Tree is not initialized\n");
         return;
     }
 
-    tree->root = _insert_node(tree->root, key, 0);
+    tree->root = _insert_node(tree->root, key, new_laptop, 0);
     tree->nr_of_nodes++;
 }
 

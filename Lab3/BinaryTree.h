@@ -34,9 +34,9 @@ typedef struct BinaryTree {
 } BinaryTree;
 
 
-Node *create_node(unsigned int key);
+Node *create_node(unsigned int key, struct Laptop *new_laptop);
 BinaryTree *create_binary_tree();
-void insert_value(BinaryTree *tree, unsigned int key);
+void insert_value(BinaryTree *tree, unsigned int key, struct Laptop *new_laptop);
 void delete_value(BinaryTree *tree, unsigned int key);
 Node *search_value(BinaryTree *tree, unsigned int key);
 

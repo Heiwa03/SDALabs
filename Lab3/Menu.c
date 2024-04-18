@@ -34,6 +34,11 @@ void open_menu (BinaryTree * tree) {
     unsigned int key;
     Node *node;
     unsigned int get_height, get_depth, get_nr_of_children;
+    char brand[50];
+    char model[50];
+    char processor[50];
+    char ram[50];
+    char price[50];
 
     do {
         print_menu();
@@ -47,7 +52,8 @@ void open_menu (BinaryTree * tree) {
                 printf("Enter the key to insert: ");
                 scanf("%u", &key);
                 getchar();
-                insert_value(tree, key);
+                get_laptop_data(brand, model, processor, ram, price);
+                insert_value(tree, key, create_laptop(brand, model, processor, ram, price));
                 break;
             case 2:
                 printf("Enter the key to delete: ");
