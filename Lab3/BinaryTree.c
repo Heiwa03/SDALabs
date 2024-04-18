@@ -10,7 +10,6 @@ Node *create_node(unsigned int key) {
     newNode->key = key;
     newNode->left = NULL;
     newNode->right = NULL;
-    //newNode->nr_of_children = 0;
     newNode->height = 0;
     newNode->depth = 0;
 
@@ -61,7 +60,7 @@ BinaryTree *create_binary_tree() {
     return newTree;
 }
 
-int max(int a, int b) {
+int _find_max_value(int a, int b) {
     return (a > b) ? a : b;
 }
 
@@ -78,7 +77,7 @@ Node *_insert_node(Node *node, unsigned int key, int depth) {
         node->right = _insert_node(node->right, key, depth + 1);
     }
 
-    node->height = 1 + max((node->left ? node->left->height : -1), 
+    node->height = 1 + _find_max_value((node->left ? node->left->height : -1), 
                            (node->right ? node->right->height : -1));
 
     return node;
@@ -94,7 +93,7 @@ void insert_value(BinaryTree *tree, unsigned int key) {
     tree->nr_of_nodes++;
 }
 
-Node *_min_value_node(Node *node) {
+Node *_find_min_value_node(Node *node) {
     Node *current_node = node;
 
     while (current_node && current_node->left != NULL)
@@ -121,7 +120,7 @@ Node *_delete_node(Node *root, int key) {
             return temp;
         }
 
-        Node *temp = _min_value_node(root->right);
+        Node *temp = _find_min_value_node(root->right);
 
         root->key = temp->key;
 
@@ -307,14 +306,14 @@ Node *search_value(BinaryTree *tree, unsigned int key) {
     return _search_node(tree->root, key);
 }
 
-void print_depth_inorder(Node *node) {
+void _print_depth_inorder(Node *node) {
     if (node == NULL) {
         return;
     }
 
-    print_depth_inorder(node->left);
+    _print_depth_inorder(node->left);
     printf("Key: %u, Depth: %u\n", node->key, node->depth);
-    print_depth_inorder(node->right);
+    _print_depth_inorder(node->right);
 }
 
 void print_depth_of_each_node(BinaryTree *tree) {
@@ -323,17 +322,17 @@ void print_depth_of_each_node(BinaryTree *tree) {
         return;
     }
 
-    print_depth_inorder(tree->root);
+    _print_depth_inorder(tree->root);
 }
 
-void print_height_inorder(Node *node) {
+void _print_height_inorder(Node *node) {
     if (node == NULL) {
         return;
     }
 
-    print_height_inorder(node->left);
+    _print_height_inorder(node->left);
     printf("Key: %u, Height: %u\n", node->key, node->height);
-    print_height_inorder(node->right);
+    _print_height_inorder(node->right);
 }
 
 void print_height_of_each_node(BinaryTree *tree) {
@@ -342,7 +341,7 @@ void print_height_of_each_node(BinaryTree *tree) {
         return;
     }
 
-    print_height_inorder(tree->root);
+    _print_height_inorder(tree->root);
 }
 
 void _print_node_properties(Node *node, unsigned int get_height, unsigned int get_depth, unsigned int get_nr_of_children) {
