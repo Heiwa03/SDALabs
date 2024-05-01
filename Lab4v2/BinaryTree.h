@@ -36,7 +36,7 @@ typedef struct Node {
 typedef struct BinaryTree {
     Node *root;
     unsigned int nr_of_nodes;
-    unsigned int is_mirrored;
+    bool is_mirrored;
 } BinaryTree;
 
 
@@ -57,25 +57,14 @@ void print_tree(BinaryTree *tree, unsigned int print_type);
 
 unsigned int get_node_height(Node *node);
 unsigned int get_node_depth(Node *node);
-unsigned int get_node_nr_of_children(Node *node);
 unsigned int get_tree_height(BinaryTree *tree);
 Node* get_parent_of_node(BinaryTree *tree, unsigned int key);
 unsigned int get_tree_mirror_status(BinaryTree *tree);
 
-unsigned int get_height_of_node_by_key(BinaryTree *tree, unsigned int key);
-unsigned int get_depth_of_node_by_key(BinaryTree *tree, unsigned int key);
-
-void show_all_leaves_of_tree(BinaryTree *tree);
-void print_depth_of_each_node(BinaryTree *tree);
-void print_height_of_each_node(BinaryTree *tree);
-
-// Use GET_DEPTH, GET_HEIGHT, GET_NR_OF_CHILDREN to retrieve the respective property of each node
-// Use NO_DEPTH, NO_HEIGHT, NO_NR_OF_CHILDREN to eliminate a property from being printed
-// Properties are stacked in the order of the prototype function's arguments
-void print_properties_of_each_node(BinaryTree *tree, unsigned int get_height, unsigned int get_depth, unsigned int get_nr_of_children);
-
 LinkedList* perform_bfs(BinaryTree *tree);
 LinkedList* perform_dfs(BinaryTree *tree);
 void print_dfs_bfs_result(LinkedList* list);
+bool mirror_tree(BinaryTree *tree);
+bool get_mirror_status(BinaryTree* tree);
 
 #endif // BINARYTREE_H

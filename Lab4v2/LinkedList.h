@@ -17,7 +17,6 @@ typedef struct LinkedList {
 LLNode* create_new_llnode(void* data);
 LinkedList* create_new_linkedlist();
 void add_to_linkedlist(LinkedList* list, void* data);
-void* remove_from_linkedlist(LinkedList* list);
 void free_linkedlist(LinkedList* list);
 void free_llnode(LLNode* node);
 

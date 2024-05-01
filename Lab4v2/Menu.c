@@ -10,6 +10,8 @@ void print_menu() {
     printf("5. Show height of tree\n");
     printf("6. Perform BFS\n");
     printf("7. Perform DFS\n");
+    printf("8. Mirror tree\n");
+    printf("9. Check if tree is mirrored\n");
     printf("10. Exit\n");
 }
 
@@ -90,11 +92,22 @@ void open_menu (BinaryTree * tree) {
                 printf("Result of BFS:\n");
                 LinkedList *bfs_list = perform_bfs(tree);
                 print_dfs_bfs_result(bfs_list);
+                free_linkedlist(bfs_list);
+                bfs_list = NULL;
                 break;
             case 7:
                 printf("Result of DFS:\n");
                 LinkedList *dfs_list = perform_dfs(tree);
                 print_dfs_bfs_result(dfs_list);
+                free_linkedlist(dfs_list);
+                dfs_list = NULL;
+                break;
+            case 8:
+                mirror_tree(tree);
+                get_mirror_status(tree) == MIRRORED ? printf("Tree mirrored\nWARNING: ALL TREE OPERATIONS ARE NOW MIRRORED\n") : printf("Tree unmirrored\nWARNING: ALL TREE OPERATIONS BACK TO TRADITIONAL BST\n");
+                break;
+            case 9:
+                get_mirror_status(tree) == MIRRORED ? printf("Tree is mirrored\n") : printf("Tree is not mirrored\n");
                 break;
             case 10:
                 break;
