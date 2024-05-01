@@ -7,11 +7,7 @@ void print_menu() {
     printf("2. Delete value\n");
     printf("3. Search value\n");
     printf("4. Print tree\n");
-    printf("5. Show properties of each node\n");
-    printf("6. Show height of node by key\n");
-    printf("7. Show depth of node by key\n");
-    printf("8. Find all leaves of tree\n");
-    printf("9. Show height of tree\n");
+    printf("5. Show height of tree\n");
     printf("10. Exit\n");
 }
 
@@ -84,35 +80,6 @@ void open_menu (BinaryTree * tree) {
                 printf("\n");
                 break;
             case 5:
-                printf("Enter 1 to get height, 0 to skip: ");
-                scanf("%u", &get_height);
-                getchar();
-                printf("Enter 1 to get depth, 0 to skip: ");
-                scanf("%u", &get_depth);
-                getchar();
-                printf("Enter 1 to get number of children, 0 to skip: ");
-                scanf("%u", &get_nr_of_children);
-                getchar();
-                printf("\n");
-                print_properties_of_each_node(tree, get_height, get_depth, get_nr_of_children);
-                printf("\n");
-                break;
-            case 6:
-                printf("Enter the key to get height: ");
-                scanf("%u", &key);
-                getchar();
-                printf("\nHeight of node %u: %u\n", key, get_height_of_node_by_key(tree, key));
-                break;
-            case 7:
-                printf("Enter the key to get depth: ");
-                scanf("%u", &key);
-                getchar();
-                printf("\nDepth of node %u: %u\n", key, get_depth_of_node_by_key(tree, key));
-                break;
-            case 8:
-                show_all_leaves_of_tree(tree);
-                break;
-            case 9:
                 printf("\nHeight of tree: %u\n\n", 1 + get_tree_height(tree));
                 break;
             case 10:
