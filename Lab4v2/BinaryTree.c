@@ -65,6 +65,32 @@ int _find_max_value(int a, int b) {
     return (a > b) ? a : b;
 }
 
+int _get_balance(Node *current_node) {
+    if (current_node == NULL)
+        return 0;
+    return get_node_height(current_node->left) - get_node_height(current_node->right);
+}
+
+Node *_right_rotate(Node *y) {
+    Node *x = y->left;
+    Node *T2 = x->right;
+    x->right = y;
+    y->left = T2;
+    y->height = _find_max_value(get_node_height(y->left), get_node_height(y->right))+1;
+    x->height = _find_max_value(get_node_height(x->left), get_node_height(x->right))+1;
+    return x;
+}
+
+Node *_left_rotate(Node *x) {
+    Node *y = x->right;
+    Node *T2 = y->left;
+    y->left = x;
+    x->right = T2;
+    x->height = _find_max_value(get_node_height(x->left), get_node_height(x->right))+1;
+    y->height = _find_max_value(get_node_height(y->left), get_node_height(y->right))+1;
+    return y;
+}
+
 Node *_insert_node(Node *node, unsigned int key, Laptop *new_laptop, int depth) {
     if (node == NULL) {
         Node *new_node = create_node(key, new_laptop);
@@ -76,10 +102,37 @@ Node *_insert_node(Node *node, unsigned int key, Laptop *new_laptop, int depth) 
         node->left = _insert_node(node->left, key,new_laptop, depth + 1);
     } else if (key > node->key) {
         node->right = _insert_node(node->right, key, new_laptop, depth + 1);
+    } else {
+        printf("ERROR:Key already exists\n");
+        return node;
     }
 
     node->height = 1 + _find_max_value((node->left ? node->left->height : -1), 
                            (node->right ? node->right->height : -1));
+
+    int balance = _get_balance(node);
+
+    // If this node becomes unbalanced, then there are 4 cases
+
+    // Left Left Case
+    if (balance > 1 && key < node->left->key)
+        return _right_rotate(node);
+
+    // Right Right Case
+    if (balance < -1 && key > node->right->key)
+        return _left_rotate(node);
+
+    // Left Right Case
+    if (balance > 1 && key > node->left->key) {
+        node->left =  _left_rotate(node->left);
+        return _right_rotate(node);
+    }
+
+    // Right Left Case
+    if (balance < -1 && key < node->right->key) {
+        node->right = _right_rotate(node->right);
+        return _left_rotate(node);
+    }
 
     return node;
 }
@@ -397,4 +450,13 @@ unsigned int get_depth_of_node_by_key(BinaryTree *tree, unsigned int key) {
         return UINT_MAX;
     }
     return get_node_depth(node);
+}
+
+unsigned int get_tree_mirror_status(BinaryTree *tree) {
+    if (tree == NULL) {
+        printf("Tree is not initialized\n");
+        return UNINITIALIZED;
+    }
+
+    return tree->is_mirrored;
 }

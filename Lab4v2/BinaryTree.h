@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include "Laptop.h"
 
+#define UNINITIALIZED -1
 #define IN_ORDER 1
 #define PRE_ORDER 2
 #define POST_ORDER 3
@@ -17,6 +18,8 @@
 #define NO_DEPTH 0
 #define NO_HEIGHT 0
 #define NO_NR_OF_CHILDREN 0
+#define MIRRORED 1
+#define NOT_MIRRORED 0
 
 typedef struct Node {
     unsigned int key;
@@ -31,6 +34,7 @@ typedef struct Node {
 typedef struct BinaryTree {
     Node *root;
     unsigned int nr_of_nodes;
+    unsigned int is_mirrored;
 } BinaryTree;
 
 
@@ -54,6 +58,7 @@ unsigned int get_node_depth(Node *node);
 unsigned int get_node_nr_of_children(Node *node);
 unsigned int get_tree_height(BinaryTree *tree);
 Node* get_parent_of_node(BinaryTree *tree, unsigned int key);
+unsigned int get_tree_mirror_status(BinaryTree *tree);
 
 unsigned int get_height_of_node_by_key(BinaryTree *tree, unsigned int key);
 unsigned int get_depth_of_node_by_key(BinaryTree *tree, unsigned int key);
