@@ -461,17 +461,18 @@ unsigned int get_tree_mirror_status(BinaryTree *tree) {
     return tree->is_mirrored;
 }
 
-void perform_bfs(BinaryTree *tree) {
+LinkedList* perform_bfs(BinaryTree *tree) {
     if (tree == NULL || tree->root == NULL) {
-        return;
+        return NULL;
     }
 
     Queue* queue = create_new_queue();
+    LinkedList* bfs_result = create_new_linkedlist();
     enqueue(queue, tree->root);
 
     while (!get_is_empty(queue)) {
         Node* node = (Node*)dequeue(queue);
-        printf("%u ", node->key);
+        add_to_linkedlist(bfs_result, node);
 
         // Enqueue left child
         if (node->left != NULL) {
@@ -484,27 +485,64 @@ void perform_bfs(BinaryTree *tree) {
         }
     }
     free_queue(queue);
+    return bfs_result;
 }
 
-void _perform_dfs_helper(Node* node) {
+LinkedList* _perform_dfs_helper(Node* node, LinkedList* list) {
     if (node == NULL) {
-        return;
+        return list;
     }
 
-    printf("%d ", node->key);
+    // Create a new node for the linked list
+    LLNode* new_llnode = (LLNode*)malloc(sizeof(LLNode));
+    new_llnode->data = node;
+    new_llnode->next = NULL;
+
+    // Add the new node to the end of the linked list
+    if (list->head == NULL) {
+        list->head = new_llnode;
+    } else {
+        LLNode* current = list->head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = new_llnode;
+    }
 
     // Recur for the left subtree
-    _perform_dfs_helper(node->left);
+    _perform_dfs_helper(node->left, list);
 
     // Recur for the right subtree
-    _perform_dfs_helper(node->right);
+    _perform_dfs_helper(node->right, list);
+
+    return list;
 }
 
-void perform_dfs(BinaryTree *tree) {
+LinkedList* perform_dfs(BinaryTree *tree) {
     if (tree == NULL || tree->root == NULL) {
         printf("ERROR:Tree is not initialized or empty\n");
+        return NULL;
+    }
+
+    // Create a new linked list
+    LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));
+    list->head = NULL;
+
+    // Perform DFS and return the linked list
+    return _perform_dfs_helper(tree->root, list);
+}
+
+void print_dfs_bfs_result(LinkedList* list) {
+    if (list == NULL || list->head == NULL) {
+        printf("ERROR:List is not initialized or empty\n");
         return;
     }
 
-    _perform_dfs_helper(tree->root);
+    LLNode* current = list->head;
+    while (current != NULL) {
+        Node* node = (Node*)current->data;
+        printf("Key: %u\n", node->key);
+        print_laptop(node->laptop);
+        current = current->next;
+    }
 }

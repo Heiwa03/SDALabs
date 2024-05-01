@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include "Laptop.h"
 #include "Queue.h"
+#include "LinkedList.h"
 
 #define UNINITIALIZED -1
 #define IN_ORDER 1
@@ -73,7 +74,8 @@ void print_height_of_each_node(BinaryTree *tree);
 // Properties are stacked in the order of the prototype function's arguments
 void print_properties_of_each_node(BinaryTree *tree, unsigned int get_height, unsigned int get_depth, unsigned int get_nr_of_children);
 
-void perform_bfs(BinaryTree *tree);
-void perform_dfs(BinaryTree *tree);
+LinkedList* perform_bfs(BinaryTree *tree);
+LinkedList* perform_dfs(BinaryTree *tree);
+void print_dfs_bfs_result(LinkedList* list);
 
 #endif // BINARYTREE_H

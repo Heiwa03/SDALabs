@@ -10,6 +10,7 @@
                 "Menu.c",
                 "Laptop.c",
                 "Queue.c",
+                "LinkedList.c",
                 "-g",
                 "${file}",
                 "-o",

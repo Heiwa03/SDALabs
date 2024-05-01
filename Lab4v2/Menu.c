@@ -37,6 +37,8 @@ void open_menu (BinaryTree * tree) {
     char processor[50];
     char ram[50];
     char price[50];
+    LinkedList *bfs_list = NULL;
+    LinkedList *dfs_list = NULL;
 
     do {
         print_menu();
@@ -86,11 +88,13 @@ void open_menu (BinaryTree * tree) {
                 break;
             case 6:
                 printf("Result of BFS:\n");
-                perform_bfs(tree);
+                LinkedList *bfs_list = perform_bfs(tree);
+                print_dfs_bfs_result(bfs_list);
                 break;
             case 7:
                 printf("Result of DFS:\n");
-                perform_dfs(tree);
+                LinkedList *dfs_list = perform_dfs(tree);
+                print_dfs_bfs_result(dfs_list);
                 break;
             case 10:
                 break;
