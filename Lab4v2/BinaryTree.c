@@ -470,7 +470,7 @@ void perform_bfs(BinaryTree *tree) {
     enqueue(queue, tree->root);
 
     while (!get_is_empty(queue)) {
-        Node* node = dequeue(queue);
+        Node* node = (Node*)dequeue(queue);
         printf("%u ", node->key);
 
         // Enqueue left child
