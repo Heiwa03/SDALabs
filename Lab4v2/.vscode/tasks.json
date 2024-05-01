@@ -9,6 +9,7 @@
                 "BinaryTree.c",
                 "Menu.c",
                 "Laptop.c",
+                "Queue.c",
                 "-g",
                 "${file}",
                 "-o",

@@ -8,6 +8,8 @@ void print_menu() {
     printf("3. Search value\n");
     printf("4. Print tree\n");
     printf("5. Show height of tree\n");
+    printf("6. Perform BFS\n");
+    printf("7. Perform DFS\n");
     printf("10. Exit\n");
 }
 
@@ -81,6 +83,14 @@ void open_menu (BinaryTree * tree) {
                 break;
             case 5:
                 printf("\nHeight of tree: %u\n\n", 1 + get_tree_height(tree));
+                break;
+            case 6:
+                printf("Result of BFS:\n");
+                perform_bfs(tree);
+                break;
+            case 7:
+                printf("Result of DFS:\n");
+                perform_dfs(tree);
                 break;
             case 10:
                 break;

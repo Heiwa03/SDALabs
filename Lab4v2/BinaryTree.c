@@ -460,3 +460,51 @@ unsigned int get_tree_mirror_status(BinaryTree *tree) {
 
     return tree->is_mirrored;
 }
+
+void perform_bfs(BinaryTree *tree) {
+    if (tree == NULL || tree->root == NULL) {
+        return;
+    }
+
+    Queue* queue = create_new_queue();
+    enqueue(queue, tree->root);
+
+    while (!get_is_empty(queue)) {
+        Node* node = dequeue(queue);
+        printf("%u ", node->key);
+
+        // Enqueue left child
+        if (node->left != NULL) {
+            enqueue(queue, node->left);
+        }
+
+        // Enqueue right child
+        if (node->right != NULL) {
+            enqueue(queue, node->right);
+        }
+    }
+    free_queue(queue);
+}
+
+void _perform_dfs_helper(Node* node) {
+    if (node == NULL) {
+        return;
+    }
+
+    printf("%d ", node->key);
+
+    // Recur for the left subtree
+    _perform_dfs_helper(node->left);
+
+    // Recur for the right subtree
+    _perform_dfs_helper(node->right);
+}
+
+void perform_dfs(BinaryTree *tree) {
+    if (tree == NULL || tree->root == NULL) {
+        printf("ERROR:Tree is not initialized or empty\n");
+        return;
+    }
+
+    _perform_dfs_helper(tree->root);
+}
