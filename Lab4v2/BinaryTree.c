@@ -116,11 +116,11 @@ Node *_insert_node(Node *node, unsigned int key, Laptop *new_laptop, int depth, 
 
             // If this node becomes unbalanced, then there are 4 cases
 
-            // Left Left Case
+            // Everthing on left Case
             if (balance > 1 && key > node->left->key)
                 return _left_rotate(node);
 
-            // Right Right Case
+            // Everything on right Case
             if (balance < -1 && key < node->right->key)
                 return _right_rotate(node);
 
@@ -138,7 +138,7 @@ Node *_insert_node(Node *node, unsigned int key, Laptop *new_laptop, int depth, 
 
             return node;
             break;
-        default:
+        case NOT_MIRRORED:
             if (key < node->key) {
                 node->left = _insert_node(node->left, key,new_laptop, depth + 1, is_mirrored);
             } else if (key > node->key) {
@@ -153,13 +153,13 @@ Node *_insert_node(Node *node, unsigned int key, Laptop *new_laptop, int depth, 
 
             balance = _get_balance(node);
 
-            // If this node becomes unbalanced, then there are 4 cases
+            // Balancing nodes
 
-            // Left Left Case
+            // Everything on left Case
             if (balance > 1 && key < node->left->key)
                 return _right_rotate(node);
 
-            // Right Right Case
+            // Everything on right Case
             if (balance < -1 && key > node->right->key)
                 return _left_rotate(node);
 
@@ -176,6 +176,10 @@ Node *_insert_node(Node *node, unsigned int key, Laptop *new_laptop, int depth, 
             }
 
             return node;
+            break;
+        default:
+            printf("ERROR:Mirror status is invalid. Tree may be corrupted.");
+            return NULL;
             break;
     }
 }
