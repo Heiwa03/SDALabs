@@ -1,3 +1,4 @@
+// Universal Linked List library to store any type through a void pointer.
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
