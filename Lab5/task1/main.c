@@ -2,6 +2,31 @@
 #include <time.h>
 #include <stdlib.h>
 
+// Array manipulation functions
+int * generate_random_array(int size);
+void print_array(int *array, int size);
+void free_array(int *array);
+int* copy_array(int* array, int size);
+
+// Inneficent sorting algorithms
+void selection_sort(int *array, int size);
+void insertion_sort(int *array, int size);
+void bubble_sort(int *array, int size);
+
+// Efficient sorting algorithms
+void merge_sort(int *array, int left, int right);
+void quick_sort(int *array, int low, int high);
+void heap_sort(int *array, int size); // Looks like this one is quick even with 10M elements. Nice :D
+
+// Opens the menu for benchmarking sorting algorithms
+void open_menu() ;
+
+int main() {
+    srand(time(0));
+    open_menu();
+    return 0;
+}
+
 int * generate_random_array(int size) {
     int *array = (int *) malloc(size * sizeof(int));
     if (array == NULL) {
@@ -285,13 +310,6 @@ void open_menu() {
             default:
                 printf("Invalid choice\n");
         }
-
         free_array(copy);
     }
-}
-
-int main() {
-    srand(time(0));
-    open_menu();
-    return 0;
 }
